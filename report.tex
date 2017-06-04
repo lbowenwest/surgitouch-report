@@ -3,7 +3,7 @@
 %!TEX options = --shell-escape
 \documentclass[12pt, fleqn]{report}
 
-\input{format.tex}
+\input{format.tex} % defines page geometry, table of contents layout, and section and chapter headings
 
 \usepackage{amsmath, amssymb} % useful for mathematical formulas and symbols
 
@@ -32,6 +32,7 @@
 
 \usepackage{enumitem} % Customize lists
 \setlist{nolistsep} % Reduce spacing between bullet points and numbered lists
+
 
 \usepackage{booktabs} % Required for nicer horizontal rules in tables
 \usepackage{longtable}
@@ -62,7 +63,7 @@
 
 
 \begin{abstract}
-This is a really good report, promise. Please give us an A.
+This is a really good report, promise. Please give us an A. Pretty please.
 \end{abstract}
 
 \usechapterimagefalse
@@ -78,7 +79,7 @@ This is a really good report, promise. Please give us an A.
 \pagestyle{fancy}
 
 \usechapterimagetrue
-\chapterimage{chapter_head_1_small.pdf}
+\chapterimage{default.pdf}
 
 \chapter{Example} \label{cha:example}
 \section{Text} \label{sec:text}
@@ -90,48 +91,48 @@ This is a really good report, promise. Please give us an A.
 
 
 
-% \chapter{Introduction}\label{cha:introduction}
-% \import{chapters/}{introduction.tex}
+\chapter{Introduction}\label{cha:introduction}
+\input{chapters/introduction.tex}
 
-% \chapter{Literature Review}\label{cha:li_review}
-% \import{chapters/}{lit_review.tex}
+% \chapter{Literature Review}\label{cha:lit_review}
+% \input{chapters/lit_review.tex}
 
 % \chapter{Technincal Background}\label{cha:tech_background}
-% \import{chapters/}{tech_background.tex}
+% \input{chapters/tech_background.tex}
 
 % \chapter{Design Parameters}\label{cha:design_params}
-% \import{chapters/}{design_params.tex}
+% \input{chapters/design_params.tex}
 
 % \chapterimage{control_section.pdf}
 % \chapter{Electronics Development}\label{cha:electronics_dev}
 % \input{chapters/electronics_dev.tex}
 
 % \chapter{Mechanism Development}\label{cha:mechanism_dev}
-% \import{chapters/}{mechanism_dev.tex}
+% \input{chapters/mechanism_dev.tex}
 
 % \chapter{Final Prototype}\label{cha:final_prototype}
-% \import{chapters/}{final_prototype.tex}
+% \input{chapters/final_prototype.tex}
 
 % \chapter{Manufacturing}\label{cha:manufacturing}
-% \import{chapters/}{manufacturing.tex}
+% \input{chapters/manufacturing.tex}
 
 % \chapter{Drawings}\label{cha:drawings}
-% \import{chapters/}{drawings.tex}
+% \input{chapters/drawings.tex}
 
 % \chapter{Cost Analysis}\label{cha:cost_analysis}
-% \import{chapters/}{cost_analysis.tex}
+% \input{chapters/cost_analysis.tex}
 
 % \chapter{Testing}\label{cha:testing}
-% \import{chapters/}{testing.tex}
+% \input{chapters/testing.tex}
 
 % \chapter{Discussion}\label{cha:discussion}
-% \import{chapters/}{discussion.tex}
+% \input{chapters/discussion.tex}
 
 % \chapter{Conclusions}\label{cha:conclusions}
-% \import{chapters/}{conclusions.tex}
+% \input{chapters/conclusions.tex}
 
 % \chapter{Personal Statements}\label{cha:personal_statements}
-% \import{chapters/}{personal_statements.tex}
+% \input{chapters/personal_statements.tex}
 
 \appendix
 % references
