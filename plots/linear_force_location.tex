@@ -1,0 +1,36 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+
+\tikzsetnextfilename{linear_force_location}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=6.127in,
+  height=4.279in,
+  at={(1.028in,0.578in)},
+  scale only axis,
+  xmin=-50,
+  xmax=50,
+  xlabel style={font=\color{white!15!black}},
+  xlabel={Shaft position ($^\circ$)},
+  ymin=0,
+  ymax=1.2,
+  ylabel style={font=\color{white!15!black}},
+  ylabel={Force (N)},
+  axis background/.style={fill=white},
+  title style={font=\bfseries},
+  title={Linear force - location relationship},
+]
+\addplot [color=mycolor1, line width=1.5pt, forget plot]
+  table[row sep=crcr]{%
+-50	1.19\\
+0	0.109999999999999\\
+50	1.19\\
+};
+\end{axis}
+\end{tikzpicture}%
