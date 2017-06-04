@@ -1,0 +1,139 @@
+%!TEX output_directory = build
+%!TEX copy_output_on_build = True
+%!TEX options = --shell-escape
+\documentclass[12pt, fleqn]{report}
+
+\input{format.tex}
+
+\usepackage{amsmath, amssymb} % useful for mathematical formulas and symbols
+
+\usepackage[english]{babel} % English language/hyphenation
+
+\usepackage{graphicx} % including graphics, such as pdfs
+\graphicspath{{./figures/}{./figures/images/}{./headers/}{./plots/}}
+
+\usepackage{shellesc}
+\usepackage{pgfplots}
+\usepackage{grffile}
+\pgfplotsset{compat=newest}
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{arrows.meta}
+\usepgfplotslibrary{patchplots}
+\usetikzlibrary{external}
+
+
+% Bold the 'Figure #' in the caption and separate it with a period
+% Captions will be left justified
+\usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
+\usepackage{subcaption} % add subfloats
+\usepackage{wrapfig} % wrap text around figure
+\usepackage{placeins} % create float barriers
+
+
+\usepackage{enumitem} % Customize lists
+\setlist{nolistsep} % Reduce spacing between bullet points and numbered lists
+
+\usepackage{booktabs} % Required for nicer horizontal rules in tables
+\usepackage{longtable}
+% \usepackage{tabularx}
+% \newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+
+\usepackage{setspace}
+\onehalfspacing
+\parskip = 11pt % adds vertical space between paragraphs
+
+\usepackage{nomencl}
+\makenomenclature
+
+% \usepackage[unicode=true]{hyperref}
+
+\usepackage{lipsum}
+\usepackage{blindtext}
+
+
+\begin{document}
+
+% Title Page
+\begingroup
+\thispagestyle{empty}
+\input{headers/title}
+\endgroup
+
+
+\begin{abstract}
+This is a really good report, promise. Please give us an A.
+\end{abstract}
+
+\usechapterimagefalse
+
+\nomenclature{$c$}{Speed of light in a vacuum inertial frame}
+\nomenclature{$h$}{Planck constant}
+
+\printnomenclature
+
+
+\pagestyle{empty}
+\tableofcontents
+\pagestyle{fancy}
+
+\usechapterimagetrue
+\chapterimage{chapter_head_1_small.pdf}
+
+\chapter{Example} \label{cha:example}
+\section{Text} \label{sec:text}
+\lipsum[1-7]
+% section text (end)
+\section{Math Section} \label{sec:math_section}
+\blindmathpaper
+% section math_section (end)
+
+
+
+% \chapter{Introduction}\label{cha:introduction}
+% \import{chapters/}{introduction.tex}
+
+% \chapter{Literature Review}\label{cha:li_review}
+% \import{chapters/}{lit_review.tex}
+
+% \chapter{Technincal Background}\label{cha:tech_background}
+% \import{chapters/}{tech_background.tex}
+
+% \chapter{Design Parameters}\label{cha:design_params}
+% \import{chapters/}{design_params.tex}
+
+% \chapterimage{control_section.pdf}
+% \chapter{Electronics Development}\label{cha:electronics_dev}
+% \input{chapters/electronics_dev.tex}
+
+% \chapter{Mechanism Development}\label{cha:mechanism_dev}
+% \import{chapters/}{mechanism_dev.tex}
+
+% \chapter{Final Prototype}\label{cha:final_prototype}
+% \import{chapters/}{final_prototype.tex}
+
+% \chapter{Manufacturing}\label{cha:manufacturing}
+% \import{chapters/}{manufacturing.tex}
+
+% \chapter{Drawings}\label{cha:drawings}
+% \import{chapters/}{drawings.tex}
+
+% \chapter{Cost Analysis}\label{cha:cost_analysis}
+% \import{chapters/}{cost_analysis.tex}
+
+% \chapter{Testing}\label{cha:testing}
+% \import{chapters/}{testing.tex}
+
+% \chapter{Discussion}\label{cha:discussion}
+% \import{chapters/}{discussion.tex}
+
+% \chapter{Conclusions}\label{cha:conclusions}
+% \import{chapters/}{conclusions.tex}
+
+% \chapter{Personal Statements}\label{cha:personal_statements}
+% \import{chapters/}{personal_statements.tex}
+
+\appendix
+% references
+
+\end{document}
