@@ -1,0 +1,90 @@
+\section{Static Analysis} % (fold)
+\label{sec:static_analysis}
+
+This section will go through the design process used to determine material, dimensions, features and fixtures for the three main gimbal mechanism components (Main Shaft, Gimbal and Joystick).
+
+\subsection{Safety Facctor} % (fold)
+\label{sub:safety_facctor}
+
+Design safety factor: $n = 1.5$
+Due to the function of this device the applied forces are being controlled to vary by precise values in a set range, hence accuracy of maximum force predictions used for stress analyses is high. The device is to be used indoors therefore environmental conditions such as weather and extreme temperature can be neglected, with the only possible factor being physical damage due to accidentally dropping the device or something similar. With added weight and size, the cost of over-engineering the product would result in losses in functionality hence the lowest advisable safety factor of 1.5 has been chosen. (Engineering Toolbox).
+
+
+% subsection safety_facctor (end)
+
+\subsection{Boundary Conditions} % (fold)
+\label{sub:boundary_conditions}
+
+One end of the Main Shaft and the Gimbal both feed into their respective encoders which are placed perpendicularly with the Gimbal along the X axis and the Main Shaft along the Y axis. For torsion analysis the boundary condition at these ends is assumed to be free because the encoder provides no resistance torque on the shafts. At the opposite ends the respective shafts are attached to motors placed along the same axis, and to analyse the maximum stresses in these components it is assumed that the boundary conditions at these ends is an applied torque at $T = 45.5 - 212 mNm$. In both of these components there are no transverse or axial forces applied, hence only torsion needs to be analysed. For the joystick there is no drilling degree of freedom along its axis and there are only forces applied perpendicular to the shaft axis, hence only a bending moment analysis is necessary.
+
+% subsection boundary_conditions (end)
+
+\subsection{Main Shaft Stress Analysis} % (fold)
+\label{sub:main_shaft_stress_analysis}
+
+Because this shaft must fit into the next two components, it will be the smallest part in the whole design and thus the stresses in this shaft are likely to be the most critical. The first design parameters are deciding what $l_1$, $D_1$ and $d_1$ should be, and thus depending on stresses and deformation what material should be used. In addition analysis of the stress raisers at fixtures will be done to see whether alternate fixture methods or dimensioning is necessary.
+Theoretical calculations
+
+For a shaft with applied torque $T$ at one end, an equal and opposite torque applied at approximately the centre position and free at the other end, as shown in figure XXXXXXXX it can be assumed that the right half of the shaft is under no torsion and thus angular deformation here is zero. Because this is the end of the shaft which enters the encoder it is the only part in which angular deformation matters. Therefore, the most prominent mode of failure of the shaft will be due to yielding under shear stress in the left half the shaft (end attached to the motor).
+
+How small dimension $d_1$ can be before yield will be used as the limiting factor. $l_1 = 140 mm$ is the maximum length set because of size restrictions, however it is irrelevant for the case of failure due to yielding. From torsional beam theory the relationship between shear stress, diameter and applied torque is shown in equation~\ref{eq:applied_torque}, where $1.5$ is the safety factor. Using $d_1$ as $d$ in equation~\ref{eq:applied_torque} to show the limiting case, maximum applied torque vs $d_1$ has been plotted to find the smallest diameter before yield within a safety factor from maximum operating torque. The analysis has also been done to see what the maximum allowable torque - used later on in section XXXXXX on control of force feedback.
+
+\begin{equation}
+  \tau = 1.5 \times \frac{16 T}{\pi d^3}
+  \label{eq:applied_torque}
+\end{equation}
+
+There are also additional stress concentrations at shoulders where the bearings to fit onto the main shaft and at the centre where there is a hole for the joystick pin connection. The stress is zero at the right hand end of the shaft so the shoulder at this end has minimal effect on stresses of shaft at that position. The shear stress due to applied torque is lower at the centre because the cross-sectional area and thus polar moment of area is greater.
+
+The relevant stress concentration factors can be found from charts for a shoulder the maximum relevant factor is Ks = 1.93, this can be reduced by reducing the ratio $^{d_1}/_{D_1}$ or increasing the radius of the fillet, however because a bearing needs to fit onto the shaft in this section the radius of fillet must be kept to a minimum. For a solid shaft the stress concentration factor due to the hole is  $Kh = 4.0$. For assembling ease, shoulders were preferred to circlip grooves.
+
+Various parameters were plotted against each other on Matlab to find the optimum range of dimensions, and the stresses have been using Solidworks Simulation:
+
+The displacement at encoder end relative to centre is zero, hence, there will be no issue with accuracy of encoder readings at whatever torque experienced by shaft. The displacement of the shaft increases as the cross-sectional area is reduced towards the motor end, however it is in the order of tens of microns so it can be assumed transverse deformations will be negligible. From beam theory calculations the angular deformation may be an issue however, and this is the main consideration in the choice of shaft length.
+
+% subsection main_shaft_stress_analysis (end)
+
+\subsection{Joystick Stress Analysis} % (fold)
+\label{sub:joystick_stress_analysis}
+
+This part fits around the main shaft with a pin going through its centre and two pairs of flanged bearings constraining it in the XX, YY and ZZ directions relative to the centre of the main shaft. The main shaft can be assumed to be constrained in the ZZ and XX and YY directions relative to the whole structure hence the centre of the joystick is also effectively fixed in these directions too, leaving the only two degrees of freedom left as RX and RY.
+From the solidworks simulation it is obvious that the
+RY calculations for force arm length: 72.67mm arm length: Force=4.3759N Torque = 0.318 Nm
+
+This piece has been adapted by the adding of a fillet to even out stress distribution at corner.
+Originally both reaBecause the moment arm is much shorter and the reaction forces are being applied at different ends of the shaft, there are much less stresses overall.
+
+% subsection joystick_stress_analysis (end)
+
+\subsection{Gimbal Stress Analysis} % (fold)
+\label{sub:gimbal_stress_analysis}
+
+The support system at each circular end is the same as the main shaft, however directions are perpendicular so the only degree of freedom this part has is RX. A torque is applied at one end, the other end rotates freely and a reaction torque exerted by user from the joystick on gimbal is more simply represented as a force, Fg, acting in the YY direction at centre. In reality the force can be applied anywhere along range of motion in XX direction but for purposes of a simple stress analysis it defined at the centre. The circular shape of gimbal means that the moment arm of Fg about the centre of circle is the same and thus the reaction torque is the same regardless of joystick position.
+
+The original design above has a sharp peak stress at the face that steps straight down onto the cylindrical shaft, from the simulation the stress concentration factor is around 2 at this step and the distribution of stress is not ideal as seen by the sudden change in colour along from the plate to the shaft. The stress raiser caused by the second step down from larger diameter to smaller diameter is unavoidable because it is necessary for the bearing fixtures to have such a sharp step. The design however was altered as to reduce stress at the plate-shaft step, to a 45 degree chamfer, this allowed easier manufacture of the small parts in machines, reducing risk of breaking in the tools. The improved stress distribution is shown by the figure below. Note that the maximum stress is also an order of 2.5 times smaller for the same loading, fixtures and other geometry.
+
+The displacement shown above is amplified by a magnitude of 300 times, the maximum displacement is 0.04mm hence should not be an issue with this part.
+
+
+% subsection gimbal_stress_analysis (end)
+
+% section static_analysis (end)
+
+\section{Dynamic Analysis} % (fold)
+\label{sec:dynamic_analysis}
+
+Low inertia follows comes from minimal resistance to rotation. This is highly dependent on having minimal friction between all moving parts. Additionally the mass and cross sectional area of all rotating parts must be reduced as much as possible because the inertia of each interconnected part has a knock-on effect on the end user. Consequently aluminium as opposed to a denser, stiffer metal has been used and all shaft diameters have been reduced to 6mm or less (while still in safe range as defined by stress analyses in section 6.2.2). The choice of motors were also the lowest inertia possible for given torque and size specifications.
+
+\begin{equation}
+  I_z = \int_A \rho^2 dA
+\end{equation}
+
+$I_z$ is the polar moment of area about axis $z$, $dA$ is an elemental area, and $\rho$ is the radial distance to the element $dA$ from the axis $z$.
+
+To reduce the area, the radial distance of each element from the axis of rotation should be minimised, hence all radii should be reduced as much as possible. For the eccentric Gimbal piece. The radius of curvature gives the maximum height from the $x$ axis of rotation, hence $D_2$ and $t_2$ have been minimised. Also the cross-sectional area $dA$ must be reduced as much as possible so the width of piece, $w_2$, has also been reduced to be 16mm.
+
+From Solidworks mass properties evaluation, setting the origin to the axis of rotation, the polar moment of inertia is output. Trialling various different shapes, and checking the stress distribution, the piece was optimised for minimal inertia whilst still having a high enough stiffness for the application.
+A complete inertial analysis of the parts was done:
+
+
+% section dynamic_analysis (end)

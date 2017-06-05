@@ -1,6 +1,6 @@
 %!TEX root = ./report.tex
 
-\usepackage[top=3cm,bottom=3cm,left=3cm,right=3cm,headsep=10pt,a4paper]{geometry}
+\usepackage[top=2.54cm,bottom=2.54cm,left=2.54cm,right=2.54cm,headsep=10pt,a4paper]{geometry}
 
 \usepackage{tikz} % Required for drawing custom shapes
 
@@ -129,7 +129,7 @@
 
 \newcommand\SectionTitle[3]{
   \begin{tikzpicture}[remember picture, overlay]
-    \draw [anchor = west] (-.5cm, 0) node [rounded corners = 10pt, fill = #1, inner sep = 10pt] {\strut\makebox[2.5cm]{}};
+    \draw [anchor = west] (-.5cm, 0) node [rounded corners = 10pt, fill = #1, inner sep = 5pt] {\strut\makebox[2.5cm]{}};
     \draw [anchor = west] (1cm, 0) node {\color{white}{\large#2}};
     \draw [anchor = west] (3cm, 0) node {#3};
   \end{tikzpicture}

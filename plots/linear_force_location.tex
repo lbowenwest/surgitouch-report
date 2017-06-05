@@ -10,8 +10,9 @@
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-  width=6.127in,
-  height=4.279in,
+  % width=6.127in,
+  width=0.5\textwidth,
+  % height=4.279in,
   at={(1.028in,0.578in)},
   scale only axis,
   xmin=-50,
@@ -23,8 +24,8 @@
   ylabel style={font=\color{white!15!black}},
   ylabel={Force (N)},
   axis background/.style={fill=white},
-  title style={font=\bfseries},
-  title={Linear force - location relationship},
+  % title style={font=\bfseries},
+  % title={Linear force - location relationship},
 ]
 \addplot [color=mycolor1, line width=1.5pt, forget plot]
   table[row sep=crcr]{%

@@ -1,30 +1,337 @@
-\section{Motor Selection}
-\label{sec:motor_selection}
+%!TEX root = ../report.tex
 
-% section motor_selection (end)
+\section{Motors}\label{sec:motors}
 
-\section{Controller Selection}
-\label{sec:controller_selection}
+\subsection{Motor Selection}\label{sub:motor-selection}
 
-% section controller_selection (end)
+% ** Louisa writing a bit in the mechanism development section** -
+% inserted some relevant stuff into here will sort out later
 
-\section{Software Choice}
-\label{sec:software_choice}
+% \emph{The client requirements state that 20 steps in torque should be
+% set as a target. Research into various motors has shown that brushless
+% motors provide lower inertia compared to those with brushes, however for
+% the same torque and power brushless motors are around double the price
+% in the range of £300 upward per motor. The controllers required by
+% brushless motors are also distinctly more expensive than those required
+% for brushed motors. Hence with budget limitations a compromise was made
+% with the client to use two motors provided by the mechatronics in
+% medicine department with a rated nominal continuous torque of 45.5 mNm
+% and a stall torque which can go up to 212mNm (short term operation range
+% only -- danger of overheating) which is sufficient for this application,
+% the torque range will just be reduced to around 65\% of the preliminary
+% test values. The retail value of these motors is \textbf{£152.96 each.}}
 
-% section software_choice (end)
+% \emph{Taking into account the motor's peak torque providing capabilities
+% if the stall torque of 212mNm is reached then the motor stalls and
+% effectively the whole mechanism shuts down.}
 
-\section{PID Control}
-\label{sec:pid_control}
+Using preliminary test results and PDS what is our required torque,
+continuous torque, speed torque gradient graph, stall torque, stall
+current, operating range, radial play, nominal voltage, power, rotor
+inertia, efficiency, maximum dimensions and mass.
 
-Here is some stuff about PID control
+Thermal data. Thermal resistance.
 
-\begin{figure}
-  \input{plots/linear_force_location}
-\end{figure}
+Servomotor, brushless (high inertia and can feel it), brushed motor.
 
-% section pid_control (end)
+However due to budget limitations a motor with half the torque was all
+that was practical, but this leaves an area for future
+improvement/investment. {[}Future more accurate testing with final
+prototype may prove otherwise{]}
 
-\section{Placement of Electronic Components}
-\label{sec:placement_of_electronic_components}
+Our motor data
 
-% section placement_of_electronic_components (end)
+A-max 32 Ø32 mm, Graphite Brushes, 20 Watt, with terminals
+
+High Power Part number 236669
+
+\begin{longtable}[]{@{}ll@{}}
+  \toprule
+  Nominal voltage & 24 V\tabularnewline
+  \midrule
+  \endhead
+  Nominal torque (max. continuous torque) & 45.5 mNm\tabularnewline
+  Stall torque & 212 mNm\tabularnewline
+  Stall current & 6.02 A\tabularnewline
+  Rotor inertia & 45.3 gcm²\tabularnewline
+  Weight & 240 g\tabularnewline
+  \bottomrule
+\end{longtable}
+
+\subsection{Motor Characterisation}\label{sub:motor-characterisation}
+
+The motors supplied by our Assistant Supervisor had already been used,
+so their voltage-current characteristics will have changed compared to
+their data sheet values. Therefore, each motor was tested by setting the
+voltage using the PWM levels (0-127) and reading the current values
+using the Roboclaw's inbuilt current sensors. The maximum current was
+set at 1.3 Amps to prevent the motors from overheating
+
+The data was then plotted to determine the motor's current threshold and
+armature resistance.
+
+Care was taken to ensure that temperature couldn't affect the readings
+by turning the motors off between each reading.
+
+% \subparagraph{\texorpdfstring{6.1.2.1 Motor 1}{ 6.1.2.1 Motor 1}}\label{motor-1}
+\paragraph{Motor 1}\label{par:motor-1}
+
+% \includegraphics[width=5.24419in,height=3.94271in]{media/image21.png}
+
+Threshold current: 0.8 Amps
+
+Armature resistance: 5.71 Ohms
+
+% \subparagraph{6.1.2.2 Motor 2}\label{motor-2}
+\paragraph{Motor 2}\label{par:motor-2}
+
+% \subparagraph{\texorpdfstring{\protect\includegraphics[width=5.33588in,height=4.00868in]{media/image19.png}}{}}\label{section}
+
+Threshold current: 0.7 Amps
+
+Armature resistance: 4.39 Ohms
+
+\section{Controller Selection }\label{sec:controller-selection}
+
+The primary consideration for the controller selection was the desire to
+have as little lag as possible. It was also important that the
+controller be dual axis, and to synchronise between the two axis. Also,
+if possible, current or torque control would be beneficial. While
+searching for suitable controllers, the majority of the high end
+candidates were out of the range of our budget
+% ({[}\href{http://www.maxonmotor.co.uk/maxon/view/product/control/Positionierung/546714}{\emph{http://www.maxonmotor.co.uk/maxon/view/product/control/Positionierung/546714}}{]}
+costing approximately £600 for dual axis, leaving no leeway for purchase
+of motors, manufacturing costs, and other required components). For the
+purpose of getting a working prototype it was decided to purchase a
+simpler controller with dual axis support for experimentation and
+development, with the possibility of upgrading controllers and motors to
+get a quicker, more accurate response at a later date for the final
+design. The controller selected, whilst it did not have the ability to
+control the current directly, was able to read the currents to each
+motor and relay this information back over a serial connection to a
+microcontroller.
+
+Additionally, the Roboclaw sets the voltage using PWM by splitting the
+voltage range (0-24V) into 7 bits (0-127), meaning it only increments
+the voltage applied by 0.189 V.
+
+Single axis control / dual axis control (no lag and automatically
+synchronized), price comparison. Possibility of producing a PCB (not
+required because benefits size/speed-wise are not necessary for given
+specifications), however could be incorporated in the long term to
+improve prototype. Explain arduino option was easier and allowed focus
+to go on mechanical design optimisation.
+
+\section{Software Choice}\label{sec:software-choice}
+
+Single axis control / dual axis control (no lag and automatically
+synchronized), price comparison. Possibility of producing a PCB (not
+required because benefits size/speed-wise are not necessary for given
+specifications), however could be incorporated in the long term to
+improve prototype. Explain arduino option was easier and allowed focus
+to go on mechanical design optimisation.
+
+\section{System modelling}\label{sec:system-modelling}
+
+\subsubsection{Governing equations}\label{governing-equations}
+
+In order for our joystick to apply the correct amount of torque given
+its position, a form of torque control must be applied
+
+To start off, we consider the simple DC motor circuit in figure 1 with
+its corresponding electrical and mechanical equations:
+
+% \includegraphics[width=6.50000in,height=1.75000in]{media/image16.png}
+
+From equation 3, it can be seen that the Torque of the motor is directly
+proportional to the current it draws, with the torque constant being the
+proportionality constant. Thus, the torque which the motors apply can be
+controlled by varying the current supplied.
+
+In its final application, it is assumed that the surgeon will be moving
+the joystick through small angles at negligible angular velocities,
+resulting in a quasi-static version of the model. This allows for a
+great simplification by setting omega dot = omega = 0 .
+
+Additionally, referring to the specification sheet for the Maxon A-max
+32 motor (link to motor selection section) we will be using, we see that
+the inductance of the motor is 0.556 mH, which compared to its armature
+resistance of 5.7 ohms is negligible and thus allows for a second
+simplification: L = 0.
+
+Thus, the motors transfer function can be represented by Ohm's Law with
+the addition of the torque constant equation, resulting in a system with
+the voltage being the input and the torque the output:
+
+% \includegraphics[width=6.50000in,height=1.27778in]{media/image23.png}
+
+To model the entire joystick system as a block diagram, we set the
+position as the input and the torque as the output.
+
+As the Roboclaw controller can only set the voltage supplied to the
+motors using Pulse Width Modulation (PWM), to obtain our desired current
+we multiply the location dependent current equation obtained in section
+X by the armature resistance R.
+
+Representing the system as a block diagram:
+
+% \includegraphics[width=6.50000in,height=1.54167in]{media/image24.png}
+
+Due to the negligible inductance of the motors, the system is a zeroth
+order system and therefore doesn't require a feedback loop.
+
+This can be accounted for by simply changing the resistance value in the
+block diagram, and subtracting 0.8 Amps from the desired current i\_d ,
+as follows:
+
+% \includegraphics[width=6.50000in,height=1.61111in]{media/image15.png}
+
+\subsubsection{Temperature Effects}\label{temperature-effects}
+
+Given the nature of their final application, the motors will constantly
+be at their stall torque and current, resulting in significant
+temperature increases.
+
+Using the temperature coefficient into the equation for the temperature
+dependence of the resistance, we find that the resistance at maximum
+operating temperature (125 °C) is 42\% greater than that at ambient
+temperature (20 °C).
+
+Alternatively, as our preliminary test results showed that a 10\%
+increase in force is noticeable, a temperature rise of 25 °C would
+result in a noticeable change on the surgeon's finger.
+
+Two possible solutions were explored in order to mitigate the effects of
+the temperature variations, the first being PID current control and the
+second using a dynamic resistance which was constantly updated in the
+code.
+
+\section{Current control designs}\label{sec:current-control-designs}
+
+\subsection{PID design}\label{sub:pid-design}
+
+This variation of operating temperature depends greatly on the operating
+conditions of the motors, and cannot be modelled using basic block
+diagrams. Thus, to design a suitable PID controller for this use, a
+model of the system was created in SimuLink.
+
+% \includegraphics[width=6.50000in,height=2.95833in]{media/image14.png}
+
+% \includegraphics[width=6.50000in,height=2.02778in]{media/image18.png}
+
+This model was designed to reflect real life operating conditions as
+accurately as possible. The desired current is amplified by the real
+winding resistance (5.7 ohms) to set the required voltage. A PWM
+generator is then used to power the DC motor via an H-Bridge, with the
+DC Voltage Source representing the unknown voltage source producing 0.8
+Amps. The motor shaft is held steady with an ideal angular velocity
+source providing 0 rad/s (to model the surgeon resisting the motion) and
+a torque counteracting that of the motor for the given current.
+
+Furthermore, a constant temperature increase of 1 °C/s is applied to the
+motor to model its temperature dependence.
+
+% \includegraphics[width=6.50000in,height=2.27778in]{media/image17.png}
+
+Here we see that the current reaches 1 Amp immediately, but drops by 5\%
+after 10 seconds of temperature increase.
+
+A PID controller was then placed in the Simulink model, by using the
+desired current as the set point, the actual current as the input and
+the resulting error signal as the output. In the real model, we will use
+a software PID in the Arduino Leonardo, using the RoboClaw's inbuilt
+current sensors to measure the actual current.
+
+% \includegraphics[width=6.50000in,height=2.98611in]{media/image22.png}
+
+Simulinks' inbuilt PID tuner was used to find the ideal $K_p$, $K_i$ and
+$K_d$ values, subject to the PDS criteria:
+
+- 200 ms response time (rise time)
+
+- 0\% overshoot
+
+- 0\% steady state error
+
+\begin{longtable}[]{@{}ll@{}}
+  \toprule
+  $K_p$ & 0.003\tabularnewline
+  $K_i$ & 24\tabularnewline
+  $K_d$ & 0\tabularnewline
+  \bottomrule
+\end{longtable}
+
+Using this controller in the model, we get the following response:
+
+% \includegraphics[width=6.50000in,height=2.27778in]{media/image20.png}
+
+With a settling time of 0.166 seconds, this response fulfils all our
+design criteria.
+
+Additionally, the system has ideal disturbance rejection if it were
+exposed to any sudden operating condition changes.
+
+To give an example, the motors were exposed to a sudden temperature
+increase of 30 °C after 3 seconds of operation:
+
+% \includegraphics[width=6.50000in,height=2.27778in]{media/image8.png}
+
+\subsection{Dynamic Resistance}\label{sub:dynamic-resistance}
+
+This fairly straightforward method for accounting for the temperature
+dependence of the windings resistance simply evaluates the resistance
+using the current sensors as follows:
+
+A desired current is calculated based on the location of the joystick.
+The motors current-voltage characteristic graph (found in section X) is
+then used to apply the corresponding voltage using the original
+resistance.
+
+The current sensors are then used to read in the actual current values
+in the circuit, and the new resistance is obtained as follows:
+
+\(R\  = \ \frac{V}{I_{actual,\ average} - I_{\text{threshold}}}\)
+
+This resistance is then used to apply the correct voltage to obtain the
+desired current.
+
+\subsection{Conclusion}\label{sub:conclusion}
+
+Both methods were implemented into the code of our joystick and tested.
+Using the simulated gain values for the PID determined above, it was
+observed that the joystick would oscillate a significant amount when a
+force was being applied. K\_p, K\_i and K\_d values were altered and
+tested, but the joystick would still jitter as soon as it was trying to
+apply a torque.
+
+One of the reasons for this jitteriness is due to the fact that, based
+on the joystick position, the desired current is at a level which the
+system cannot supply based on the current resolution of 0.03 Amps.
+Therefore, the PID is trying to enforce a current which is physically
+impossible. To account for this, the PID was redesigned to control the
+PWM logic levels (0-127), however the unstableness was still observed.
+
+The dynamic resistance method showed a stronger and more stable response
+in comparison, and will thus be implemented in the final version of the
+joystick. The current resolution was also accounted for in this method,
+by only letting the desired current increment in 0.03 Amp steps. The
+tests to evaluate its accuracy can be found in section X.
+
+\section{Cooling System}\label{sec:cooling-system}
+
+Didn't have a fucking clue where to put this. Plan on doing some simple
+fan calcs.\\
+Our fans are capable of 9.35m\^{}3 / hr. How often is the air inside the
+casing replaced? Can we then set this up into a simple heat transfer
+equation to see how quickly the motor would cool from its max operating
+temp?
+
+Need to take note that this uses advanced CFD to actually work out, but
+we can probably get some ``that'll do donkey'' type calculations.
+
+\section{Power Supply}\label{sec:power-supply}
+
+What we're allowing for\ldots{} two 0.6W fans, arduino, roboclaw, two
+motors, losses in wiring?
+
+Potentiometer? Switch losses?

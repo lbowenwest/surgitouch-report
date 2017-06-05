@@ -6,6 +6,7 @@
 \input{format.tex} % defines page geometry, table of contents layout, and section and chapter headings
 
 \usepackage{amsmath, amssymb} % useful for mathematical formulas and symbols
+\usepackage{siunitx} % for typesetting units
 
 \usepackage[english]{babel} % English language/hyphenation
 
@@ -14,6 +15,7 @@
 
 \usepackage{shellesc}
 \usepackage{pgfplots}
+\usepackage{tikz-3dplot}
 \usepackage{grffile}
 \pgfplotsset{compat=newest}
 \usetikzlibrary{plotmarks}
@@ -43,6 +45,7 @@
 \usepackage{setspace}
 \onehalfspacing
 \parskip = 11pt % adds vertical space between paragraphs
+\parindent 0pt
 
 \usepackage{nomencl}
 \makenomenclature
@@ -81,57 +84,54 @@ This is a really good report, promise. Please give us an A. Pretty please.
 \usechapterimagetrue
 \chapterimage{default.pdf}
 
-\chapter{Example} \label{cha:example}
-\section{Text} \label{sec:text}
-\lipsum[1-7]
-% section text (end)
-\section{Math Section} \label{sec:math_section}
-\blindmathpaper
-% section math_section (end)
+\chapter{Introduction}\label{cha:introduction}
+\input{chapters/introduction}
 
-% \chapter{Introduction}\label{cha:introduction}
-% \input{chapters/introduction.tex}
+\chapter{Literature Review}\label{cha:lit_review}
+\input{chapters/lit_review}
 
-% \chapter{Literature Review}\label{cha:lit_review}
-% \input{chapters/lit_review.tex}
+\chapter{Technincal Background}\label{cha:tech_background}
+\input{chapters/tech_background}
 
-% \chapter{Technincal Background}\label{cha:tech_background}
-% \input{chapters/tech_background.tex}
+\chapter{Design Parameters}\label{cha:design_params}
+\input{chapters/design_params}
 
-% \chapter{Design Parameters}\label{cha:design_params}
-% \input{chapters/design_params.tex}
+\chapterimage{mec_dev.pdf}
+\chapter{Mechanism Development}\label{cha:mechanism_dev}
+\input{chapters/mechanism_dev}
 
-% \chapterimage{control_section.pdf}
-% \chapter{Electronics Development}\label{cha:electronics_dev}
-% \input{chapters/electronics_dev.tex}
+\chapterimage{control_section.pdf}
+\chapter{Electronics Development}\label{cha:electronics_dev}
+\input{chapters/electronics_dev}
 
-% \chapter{Mechanism Development}\label{cha:mechanism_dev}
-% \input{chapters/mechanism_dev.tex}
+\chapter{Force Feedback Design}\label{cha:force_feedback}
+\input{chapters/force_feedback}
+
+\chapter{Static and Dynamic Analysis}\label{cha:analysis}
+\input{chapters/analysis}
 
 % \chapter{Final Prototype}\label{cha:final_prototype}
-% \input{chapters/final_prototype.tex}
+% \input{chapters/final_prototype}
 
-% \chapter{Manufacturing}\label{cha:manufacturing}
-% \input{chapters/manufacturing.tex}
+\chapter{Manufacturing}\label{cha:manufacturing}
+\input{chapters/manufacturing}
 
 % \chapter{Drawings}\label{cha:drawings}
-% \input{chapters/drawings.tex}
-
-% \chapter{Cost Analysis}\label{cha:cost_analysis}
-% \input{chapters/cost_analysis.tex}
+% \input{chapters/drawings}
 
 % \chapter{Testing}\label{cha:testing}
-% \input{chapters/testing.tex}
+% \input{chapters/testing}
 
 % \chapter{Discussion}\label{cha:discussion}
-% \input{chapters/discussion.tex}
+% \input{chapters/discussion}
 
 % \chapter{Conclusions}\label{cha:conclusions}
-% \input{chapters/conclusions.tex}
+% \input{chapters/conclusions}
 
 % \chapter{Personal Statements}\label{cha:personal_statements}
-% \input{chapters/personal_statements.tex}
+% \input{chapters/personal_statements}
 
+\usechapterimagefalse
 \appendix
 % references
 

@@ -1,0 +1,167 @@
+%!TEX root = ../report.tex
+
+The following sections will outline the design steps taken to determine the force feedback characteristics.
+
+\section{Force literature and Testing} % (fold)
+\label{sec:force_literature_and_testing}
+
+During the first client meeting, it was decided that the haptic feedback should apply 20 noticeable force increments from the joystick's top-dead position to the boundary of its range of motion. Conducting a literature review on the characteristics of human touch, it was discovered that the finger can detect a force as small as \SI{0.06}{\newton}, and only notices force changes which are 7\% or greater.
+These values were used to form the hypothesis for the preliminary haptic tests (See Progress report).
+The results of these tests showed that on average, the minimum force the users could detect is \SI{0.11}{\newton}, with a minimum noticeable increment of 10\%.
+Additionally, two qualitative tests were conducted to find the maximum force a user could comfortably resist, and the ideal range of motion for various joystick lengths. The results showed that on average, the maximum force is \SI{1.19}{\newton} and the range of motion is \SI{90}{\degree} (\SIrange{-45}{45}{\degree}).
+
+[Insert schematic here]
+
+However, a range of 40 steps over \SI{90}{\degree} meant each increment would be \SI{2.25}{\degree}, and given encoder choice (see section X) with a precision of \SI{0.1}{\degree} this level of precision could not be achieved. It was therefore decided to increase this range to \SI{100}{\degree}, resulting in \SI{2.5}{\degree} steps which the encoders can accurately measure.
+
+% section force_literature_and_testing (end)
+
+\section{Step Design} % (fold)
+\label{sec:step_design}
+
+Using the maximum force range and increments specified in section X, namely 20 steps over \SIrange{0.11}{1.19}{\newton}, the actual relationship between force and joystick position could be established.
+
+\begin{figure}
+  \input{plots/linear_force_location}
+  \caption{Linear force location relationship}
+  \label{fig:linear_force_location}
+\end{figure}
+
+For a linear relationship, the force applied on the surgeon's finger would increase by \SI{0.054}{\newton} every \SI{2.5}{\degree} over the \SIrange{0.11}{1.19}{\newton} range, as shown in Figure~\ref{fig:linear_force_location}.
+
+\begin{figure}
+  \input{plots/percentage_increment_linear}
+  \caption{Percentage increment per step for linear relationship}
+  \label{fig:percentage_increment_linear}
+\end{figure}
+
+However, from the surgeon's point of view, it feels like each step is getting smaller, as can be seen in Figure~\ref{fig:percentage_increment_linear}.
+This shows that initially the surgeon detects large increments, but each individual force step after \SI{20}{\degree} will not be noticeable.
+Thus, a logarithmic relationship between the force and the location was designed.
+
+Solving equation~\ref{eq:logarithmic_increments} for the force values given,
+\\
+\begin{equation}
+  F_{\text{min}} \times i^{20} = F_{\text{max}}
+  \label{eq:logarithmic_increments}
+\end{equation}
+
+the increment ($i$) is 1.126, i.e. a 12.6\% increase for every \SI{2.5}{\degree}.
+This is 2.6\% higher than the minimum found during testing.
+
+The final force-position relationship is shown in equation~\ref{eq:final_force_pos}, and represented graphically in Figure~\ref{fig:logarithmic_force_location}.
+\\
+\begin{equation}
+  F = 0.11 \times 1.126^{\frac{\theta}{2.5}}
+  \label{eq:final_force_pos}
+\end{equation}
+
+Where $\theta$ is the angular position of the joystick.
+
+\begin{figure}[hb]
+  \input{plots/logarithmic_force_location}
+  \caption{Logarithmic force location relationship}
+  \label{fig:logarithmic_force_location}
+\end{figure}
+
+% section step_design (end)
+
+\section{Limitations based on electronic system} % (fold)
+\label{sec:limitations_based_on_electronic_system}
+
+The forces and steps determined above are for an ideal system and are treated as a guide for choosing values for the real world application.
+
+The RoboClaw motor controller, used to drive the motors, splits the voltage range (\SIrange{0}{24}{\volt}) into 128 steps (7 bit), resulting in a resolution of \SI{0.189}{\volt}.
+Given the motor characterisation outlined in section X, it was found that the system has a current threshold of \SI{0.8}{\ampere} when the first logic level (\SI{0.189}{\volt}) was applied, as was shown in Figure~\ref{fig:motor_1}.
+
+This means that, given the actual torque constant of $K_t$ determined in the motor characterisation in section~\ref{sec:motors}, the minimum torque applied by the motors is $0.8 K_t$. Thus, the minimum force on the surgeon's finger given the joystick length of \SI{11}{\centi\metre} is \SI{0.26}{\newton}.
+Additionally, the current resolution (using the voltage resolution) is \SI{0.03}{\ampere}, which is 3.75\% of the \SI{0.8}{\ampere} minimum current, meaning increments of 10\% can be achieved.
+
+To achieve the tested maximum force of \SI{1.19}{\newton}, the motors would need to apply \SI{143}{\milli\newton\metre} of torque. The following two sections will consider the thermal and stress analysis of our system to determine whether this torque can be applied.
+
+
+% section limitations_based_on_electronic_system (end)
+
+\section{Thermal Analysis} % (fold)
+\label{sec:thermal_analysis}
+
+To start with, the thermal characteristics of the motors were modelled at steady state for each current level, using the following assumptions:
+
+\begin{itemize}
+  \item Current is held constant long enough until the system is at thermal steady state
+  \item Ambient temperature inside the casing is held constant at \SI{20}{\celsius}
+  \item Thermal resistances given in the datasheet are correct
+  \item At stall current, 80\% of the power flowing to the motors is converted into heat
+\end{itemize}
+
+The motors can be represented using the thermal circuit shown in Figure~\ref{fig:motor_thermals}.
+To find the power flowing through the circuit at each current interval, the equation
+\\
+\begin{equation}
+  P = I^2 R
+\end{equation}
+
+is used.
+When the windings are at \SI{125}{\celsius}, their resistance is obtained using the temperature dependence equation,
+\\
+\begin{equation}
+  R_{T=\SI{125}{\celsius}} = R_{T=\SI{20}{\celsius}} (1 + \alpha (\Delta T))
+\end{equation}
+
+where $\alpha$ is the temperature coefficient of resistance for copper (\SI{0.0004}{\per\kelvin}), giving $R_{T=\SI{125}{\celsius}} = \SI{8.1}{\ohm}$.
+
+The temperature difference between the windings and ambient is then determined by equation~\ref{eq:temp_difference}, the temperature distribution is shown in Figure~\ref{fig:temp_windings}.
+\\
+\begin{equation}
+  T_{difference} = Q R_{thermal} = 0.8 \times I^2 R_{electrical} \times R_{thermal}
+  \label{eq:temp_difference}
+\end{equation}
+
+\begin{figure}
+  \input{plots/temp_windings}
+  \caption{Steady state $T_{windings}$ for $T_{casing} = \SI{20}{\degree}$ based on current}
+  \label{fig:temp_windings}
+\end{figure}
+
+The maximum temperature which the windings can sustain is \SI{125}{\degree}, meaning only torques up to \SI{45.5}{\milli\newton\metre} can be applied continuously, as outlined in the datasheet.
+As this would only give us a small range of \SIrange{28.8}{45}{\milli\newton\metre}, we needed to determine how long each torque step over \SI{45.5}{\milli\newton\metre} could be applied before the windings reach \SI{125}{\degree}.
+
+To do this, the worst case scenario was analysed based on the following assumptions:
+
+\begin{itemize}
+  \item All power ($I^2R_{electrical}$) is used to increase the temperature of the windings
+  \item The temperature of the windings rises at a constant rate
+  \item The resistance ($R_{electrical}$) is taken as the mean resistance, i.e. $R_{electrical,\SI{75}{\celsius}}$
+  \item Mass of the windings is \SI{50}{\gram}
+\end{itemize}
+
+Then, the time taken was calculated using equation~\ref{eq:heating_time}, giving the distribution shown in Figure~\ref{fig:overheating_times}.
+\\
+\begin{equation}
+  t = \frac{m c_p \Delta T}{I^2 R_{electrical, \SI{72.5}{\celsius}}}
+  \label{eq:heating_time}
+\end{equation}
+
+\begin{figure}
+  \input{plots/overheating_times}
+  \caption{Time torque can be applied before $T_{windings} = \SI{125}{\celsius}$}
+  \label{fig:overheating_times}
+\end{figure}
+
+Where $c_p$ is the heat capacity of copper.
+
+Using the times obtained above, we find that the motors can be at maximum torque for 20 seconds before the windings reach their maximum temperature, a very unlikely situation given their application. During use, the surgeon is expected to spend most of the time inside the "go-zone" where the motors are switched off.
+Therefore, it is fine to use the motors up to our desired maximum torque of \SI{143}{\milli\newton\metre}.
+
+
+% section thermal_analysis (end)
+
+\section{Stress Analysis} % (fold)
+\label{sec:stress_analysis}
+
+% section stress_analysis (end)
+
+\section{Conclusion} % (fold)
+\label{sec:conclusion}
+
+% section conclusion (end)

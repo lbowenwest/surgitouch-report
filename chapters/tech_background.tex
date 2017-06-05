@@ -1,21 +1,33 @@
-\section{Technical Background for Project}
-\label{sec:technical_background_for_project}
+%!TEX root = ../report.tex
 
-\subsection{Haptics and Force Feedback}
-\label{sub:haptics_and_force_feedback}
+\section{Force Feedback Applications} % (fold)
+\label{sec:force_feedback_applications}
 
-Motor constants, torque speed / stall torque v power graphs
 
-% subsection haptics_and_force_feedback (end)
 
-\subsection{Introduction to Arduinos and Micro-Controllers}
-\label{sub:introduction_to_arduinos_and_micro_controllers}
+% section force_feedback_applications (end)
 
-Electronics research
+\section{Control Theory and System design} % (fold)
+\label{sec:control_theory_and_system_design}
 
-% subsection introduction_to_arduinos_and_micro_controllers (end)
 
-\subsection{ROS Software}
-\label{sub:ros_software}
+% section control_theory_and_system_design (end)
 
-% subsection ros_software (end)
+\section{Introduction to Microcontrollers and Arduinos} % (fold)
+\label{sec:introduction_to_microcontrollers_and_arduinos}
+
+Microcontrollers are the chief element of any embedded application. A microcontroller is composed of several different elements; a processing unit (CPU) to handle execution of tasks, memory, input / output (I/O) ports and timers. As well as any peripherals, such as analogue to digital converters (ADCs) or serial communication (UART) that can add additional functionality.
+
+The Ardunio framework is based on the popular range of Atmel AVR chips, and provides a simpler starting point for the development of an embedded application. Ardunio provide many libraries which simplify working with particular peripherals and any I/O, enabling a quicker development time, particularly during the concept phase.
+
+% section introduction_to_microcontrollers_and_arduinos (end)
+
+\section{Robot Operating Systen} % (fold)
+\label{sec:robot_operating_system}
+
+The Robot Operating System (ROS) is a software suite designed to make producing complex robotics software simpler. It consists of a large collection of tools, libraries, drivers, and packages to do this. ROS encourages collaboration between research institutes through its highly modular framework. For example, say an institute specialises in mapping environments, and produces a ROS package that does this brilliantly, another institute can use this package to navigate through indoor spaces using these maps without having to develop a mapping system themselves. Further examples include a package to retrieve and process images from a camera device, or a package for a specific encoder or motor to enable simpler control.
+
+
+A typical ROS application will consist of various "nodes", which perform specific tasks. ROS typically communicates between nodes over topics. Topics are named buses over which nodes exchange messages, if a node is interested in data of a topic it \emph{subscribes} to that particular topic, whereas nodes which generate data \emph{publish} data to the relevant topic (@ROS Wiki). ROS also has another method of communication between topics called services. These differ from messages in that a callback is issued, these services work in a similar way to a function call in a program, data is sent to a particular node which has advertised a service, a calculation is then carried out, or data obtained and processed, and is then sent back to the node which initially sent the data.
+
+% section robot_operating_system (end)

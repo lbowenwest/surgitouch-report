@@ -1,24 +1,99 @@
-\subsection{Manufacture Timescale}
-\label{sub:manufacture_timescale}
+%!TEX root = ../report.tex
 
-% subsection manufacture_timescale (end)
+\section{Manufacturing Timeline} % (fold)
+\label{sec:manufacturing_timeline}
 
-\subsection{Engineering Drawings}
-\label{sub:engineering_drawings}
+Picture goes here
 
-%subsection engineering_drawings (end)
+% section manufacturing_timeline (end)
 
-\subsection{Manufacturing Process}
-\label{sub:manufacturing_process}
+\section{Engineering Drawings} % (fold)
+\label{sec:engineering_drawings}
 
-% subsection manufacturing_process (end)
+% section engineering_drawings (end)
 
-\subsection{Assembly / Disassembly}
-\label{sub:assembly_disassembly}
+\section{Manufacturing Process} % (fold)
+\label{sec:manufacturing_process}
 
-% subsection assembly_disassembly (end)
+\subsection{Main Gimbal Assembly} % (fold)
+\label{sub:main_gimbal_assembly}
 
-\subsection{Cost Analysis}
-\label{sub:cost_analysis}
+With the small but complex curved shape with flanges and a slot, the gimbal piece realistically could only be manufactured by CNC milling to achieve the high tolerances required. The other components in the assembly: the main shaft, the gimbal shafts, joystick and frictionless collar were all manufactured in the Mechanical Engineering Student Training Workshop.
 
-% subsection cost_analysis (end)
+The extremely small dimensions of the gimbal assembly components were just at the lower limit of the workshop machines' capabilities; combining this with using Aluminium instead of steel meant greater flexing of parts and that the likelihood of these small fragile parts breaking whilst machining was extremely high. Extra precautionary measures, therefore, were required to machine all parts, details of each part will be shown in sections 8.3.1.1 to 8.3.1.2.
+
+
+\subsubsection{Gimbal Shaft} % (fold)
+\label{par:gimbal_shaft}
+
+This component was machined from a 20mm square bar, milled to a 16 x 10mm section and then turned in a lathe using an adjustable 4 jaw chuck. Due to the relatively complex shape for such a small part and the high tolerance required, a few attempts were necessary to produce an acceptable final piece. The main manufacturing details to cope with the tolerances are outlined in the next paragraph.
+
+Firstly, the length from back-plate to step is highly toleranced to ensure no mechanical play of the shaft axially. This was easily dealt with using a lathe, because the face of plate could be referenced and length cut to 0.01mm accuracy.  Secondly, the end step diameter needed to fit exactly into the shaft couplings so that torque could be transmitted along shaft from the motor. It was of high importance that not too much was cut off otherwise the shaft would simply spin unrestrained in the coupling. Therefore, the shaft couplings were taken into the workshop while making this part and the fit was checked during the last few cuts with iterative cuts in the order of microns being taken to achieve the H7 tolerance (Figure A). Lastly, the perpendicularity of shaft with back-plate is important so that the two gimbal shafts when joined with the gimbal piece rotate along one axis concentric with each other. This was ensured by using a collet to hold the circular shaft end while turning down the back-plate to final thickness.
+
+\begin{figure}
+
+\end{figure}
+
+% paragraph gimbal_shaft (end)
+
+\subsubsection{Main Shaft} % (fold)
+\label{par:main_shaft}
+
+The Main Shaft was machined from a 16mm diameter aluminium rod in a lathe and then faced off in a mill. The main tolerances are: straightness of the shaft; position of steps, for the same reason as the gimbal shafts (axial mechanical play in bearing housing); and the perpendicularity of hole through the centre, so the joystick at the correct angle when at its zero position.
+
+Because this was a relatively slender and flexible piece to machine, the importance of using a centre was greater for this piece than the gimbal shaft (although used in both for better accuracy in diameters). Once the shaft was turned down to correct size it was placed in a collet on a mill, this maintained perpendicularity to cutting tools to the required tolerance. When doing the final facing off before drilling of the holes, the facing tool had to come down vertically onto the side along length of the shaft close to the collett where the piece was being held to ensure no excess bending moment was applied and reduce risk of the shaft bending and snapping
+
+% paragraph main_shaft (end)
+
+\subsubsection{Joystick} % (fold)
+\label{par:joystick}
+
+The joystick was machined from a 20 x 20 mm square bar, turned down either side. The centre gap was milled out through one face and a hole drilled across the other face. The shaft must be straight and the position of holes needed to be of a high tolerance so that the joystick has the correct zero position. These tolerances were easily met by using a centre when turning the shaft down in  a lathe and using an edge-finding tool to position drill in the mill.
+
+% paragraph joystick (end)
+
+\subsubsection{Friction-reducing Collar} % (fold)
+\label{par:friction_reducing_collar}
+
+Once the Gimbal had been produced by CNC and the joystick had been machined, the friction-reducing collar could be manufactured to provide an exact fit between the two. A cylindrical piece of PTFE was put into the lathe and turned down to the a diameter which fit tight into the slot-track of the Gimbal part, and a hole drilled into it the same size as the joystick-gimbal diameter. This was to ensure no mechanical play of the joystick about the gimbal’s rotary axis, as well as a smooth rotation of the joystick along the track which over time would wear down to become even smoother.
+
+% paragraph friction_reducing_collar (end)
+
+% subsection main_gimbal_assembly (end)
+
+\subsection{Laser-cut Casing and Support} % (fold)
+\label{sub:laser_cut_casing_and_support}
+
+For the mechanism support structure and casing, it was decided to laser cut acrylic sheets in the robotics society and advanced hackspace. There were many reasons leading to this conclusion, such as its rapid nature and acrylic’s low mass, yet the main reason was the accuracy that the laser cutter could achieve. Accuracy was vital for the support structure as the shafts had to be perfectly supported in order to reduce any unwanted shaft loading and incorrect encoder readings.
+
+3mm clear acrylic was used so that all the inner workings of our design could be seen on demo day without having to take the joystick apart.
+
+\begin{figure}
+
+\end{figure}
+
+% subsection laser_cut_casing_and_support (end)
+
+\subsection{Soft Material 3D Printing} % (fold)
+\label{sub:soft_material_3d_printing}
+
+
+
+% subsection soft_material_3d_printing (end)
+
+% section manufacturing_process (end)
+
+\section{Assembly Process} % (fold)
+\label{sec:assembly_process}
+
+Insert an exploded diagram of the assembly in each X and Y direction. As well as how to insert and remove electrical components. (ignore assembly of power supply - assume its just a box).
+
+
+% section assembly_process (end)
+
+\section{Cost Analysis} % (fold)
+\label{sec:cost_analysis}
+
+A full breakdown of the project expenditures is shown in figure [a] with the spread over different areas shown by the pie chart in figure [b]. The retail value of the maxon motors used is £152.96 each, however these were provided by the client and are therefore not included in the overall project costs.  Due to savings made by not purchasing motors externally, a greater fund was left for contingency, allowing purchase of additional critical parts such as a spare encoder and controller.
+
+% section cost_analysis (end)

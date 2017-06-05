@@ -1,19 +1,198 @@
-\section{Mechanism Development}
-\label{sec:mechanism_development}
+%!TEX root = ../report.tex
 
-\subsection{Two-DOF Joystick Design}
-\label{sub:two_dof_joystick_design}
+\section{Initial Design Concepts} % (fold)
+\label{sec:initial_design_concepts}
 
-% subsection two_dof_joystick_design (end)
+\subsection{2 DOF Mechanism} % (fold)
+\label{sub:2_dof_mechanism}
 
-\subsection{Force Feedback Deployment Measures}
+\begin{wrapfigure}{R}{0.4\textwidth}
+  \input{figures/3d_axis}
+  \caption{3D Axis visualisation}
+  \label{fig:3d_axis}
+\end{wrapfigure}
+
+Three main mechanisms were considered for a device that could rotate in two ($a$ and $b$)
+degrees of freedom but maintain constrained in the others ($x$, $y$, $z$, and $c$).
+Each design was examined carefully on whether or not an additional degree of
+freedom in $c$ could be incorporated into the mechanism as an area for future
+development of the final prototype, however, three degrees of freedom was not
+vital.
+
+The three mechanisms consisted of:
+
+\begin{itemize}
+  \item A mouse-ball with two perpendicular driving rollers
+  \item A gimbal rotating around two perpendicular shafts
+  \item A ball-in-socket moved by perpendicular sets of tensioning cables
+\end{itemize}
+
+{\color{red}Insert diagrammatic explanations of each + include explanations of pros/cons of each.
+Then go onto choice of 2.}
+
+% subsection 2_dof_mechanism (end)
+
+\subsection{Force Feedback Deployment Measures} % (fold)
 \label{sub:force_feedback_deployment_measures}
+
+For a gimbal mechanism, a resistance torque applied on each perpendicular shaft is
+the basis of the force feedback on the user’s end of the joystick. With more
+research into joystick designs a few different methods were considered and
+calculations made to prove the validity of each one. Research into mechatronics
+and haptics papers have shown the use of electro-rheological (ER) and magneto-rheological (MR) fluids which
+can be used to provide variable force feedback by varying electric or magnetic
+fields, respectively. These mechanisms are highly advanced and the technology
+required to do this would not only make the joystick assembly much larger, but
+more complex to manufacture and out of range of the project budget. The various designs do all however make use of DC motors, brakes, clutches, gears, belts and pulleys as means of deploying force feedback. Hence, taking away some ideas from the mechanism functionalities the following design concepts for a smaller, lower-budget, easily manufacturable device were investigated:
+
+\begin{itemize}
+  \item Bike cable braking system to apply resistance torque onto shaft
+  \item Linear actuators that apply variable pressure and resistance torque similar to a frictional clutch
+  \item Direct motor on shaft
+  \item Geared motor with clutch engagement/disengagement
+\end{itemize}
+
+Insert drawings of each concept and evaluate reasons for choice of concept (c).
 
 % subsection force_feedback_deployment_measures (end)
 
-\subsection{Design Iterations}
-\label{sub:design_iterations}
+\subsection{Choice of Driving System} % (fold)
+\label{sub:choice_of_driving_system}
 
-Cad models of different concepts / iterations of gimbal mechanism
 
-% subsection design_iterations (end)
+From preliminary tests in order to get a full range of force feedback the desired maximum
+torque should lie within the range of 62-79 mNm, with a minimum torque in the range of 5-8 mNm,
+although depending on choices of motor, the feedback range can be subject to change.
+Additionally important specifications of the motor are inertia and size. From the PDS the whole
+mechanism must have extremely low inertia. Because the main source of inertia is in the rotary
+mechanism and windings of motor, this was a critical part to look into. More details of the
+motor selection process are found in the next section on electronics development. For the next
+two sections 6.3 and 6.4, the relevant parameters of the motors chosen for the final prototype,
+used for designing the mechanism, are:
+
+% \begin{longtable}[h]{@{}ll@{}}
+%   \toprule
+%   Nominal torque  & $T_{\text{nom}}$    &   45.5 mNm    \tabularnewline
+%   Stall torque    & $T_{\text{stall}}$  &   212 mNm     \tabularnewline
+%   Rotor inertia   & $J_{\text{motor}}$  &   45.3 gcm²   \tabularnewline
+%   Outer Diameter  & $\Theta_{O}$        &   240 g       \tabularnewline
+%   Length          & $L_{\text{motor}}$  &   61.5 mm     \tabularnewline
+%   \bottomrule
+% \end{longtable}
+
+% subsection choice_of_driving_system (end)
+
+% section initial_design_concepts (end)
+
+\section{Failure Analysis and Design Optimisation} % (fold)
+\label{sec:failure_analysis_and_design_optimisation}
+
+One of the main specifications of this project was to produce a prototype that was small
+and portable. From the PDS the aim is to get the whole assembly to a size smaller than 200 x 200 x 200 mm. With motors must be placed at the end of perpendicular shaft leaving around 140 x 140 mm x 200 mm of space to work with for design of the gimbal.
+For motor-driven shafts with opposing forces applied by the user’s fingers at the joystick end, there are various forces and moments which must be transferred along shafts and via the gimbal mechanism between components. Therefore, all parts in the gimbal mechanism must be designed to cope with these without failure.
+Two other modes of failure which are also possible are fatigue due to repeated loading and thermal overheating of electrical components (discussed in later section on electronics development and final prototype), however due to the low duty cycle and vibrations fatigue is negligible.
+
+\subsection{Main Design Iterations} % (fold)
+\label{sub:main_design_iterations}
+
+\paragraph{Initial Prototype design} % (fold)
+\label{par:initial_prototype_design}
+
+General overview of the setup Plan view below: Two perpendicular shafts, two degrees of freedom of rotation about x and y axes, force feedback in each direction applied by perpendicular motors attached directly to shafts. Reduced inertia by having as little things attached to the motor shafts as possible. Encoders attached to opposite end of motor where shafts are not under applied torsion and are free to rotate. Position in the overall work-space will be defined by combined angular displacement measurements from perpendicular encoders.
+
+The main parts to design are in the central box - the gimbal mechanism. Design iterations and the reasonings for them will be outlined in this section.
+
+% paragraph initial_prototype_design (end)
+
+\paragraph{Initial Prototype Mechanism} % (fold)
+\label{par:initial_prototype_mechanism}
+
+Gimbal curves upwards, so motor shafts can sit as low as possible and the joystick cover rests at a height above the radius of the gimbal. The joystick is attached to the main shaft via a Delrin piece, so when the joystick rotates about the gimbal axis there is low friction rubbing of Delrin against aluminium shaft (as opposed to using and metal piece). A bushing would be placed in the hole between ptfe piece and the bolt which feeds through the shaft, so that there is less frictional resistance to rotation on this face. The gimbal component consists of a curved piece and two shafts with external threads secured to the curved piece by nylon-insert lock nuts, to resist turning, so the curved piece moves together with the shafts. A slot-track is machined through the curved piece for the joystick to move through. A nylon or PTFE collar will be placed around the joystick shaft to reduce friction and provide smooth gliding of the joystick through the slot-track.
+
+When manufacturing the prototype, issues of flexibility of PTFE meant that machining to the high tolerance necessary was difficult. The flexibility also was not acceptable for the function of the shaft because of increased mechanical play at the joystick end. The stiffness of this part therefore needed to be increased greatly.
+
+After further inspection and testing of prototype it was decided that if the nuts were placed concentric along the axis of rotation of the pieces it was holding together, it would eventually come loose enough incurring even more mechanical play of the joystick. This was a major issue when it came to testing the preliminary prototype, hence a number of alternatives were investigated.
+
+% paragraph initial_prototype_mechanism (end)
+
+\paragraph{Gimbal Design Iterations} % (fold)
+\label{par:gimbal_design_iterations}
+
+(a \& b) Flanged curved piece CNC milled with two parts separately turned down in the lathe. Each part with holes drilled into them and countersunk bolts to leave a sleek looking face and hold the parts together.
+
+(a) Using 4 eccentric screws, hence providing no room for vertical or horizontal play. However due to the small dimensions of this piece the area of piece to drill is less than 20 x 20 mm, meaning that the size of the holes must be very small in order for the adjacent nut and washer fittings not to interfere with each other in addition to the assembly the bolt heads must be small enough to fit in next to the shaft.
+
+(b) Using 2 eccentric screws of slightly larger diameter, this may add increased vertical instability however the flange should support the shaft pieces and counteract this. However, the bolts must be less than M3 in diameter, and because the applied torque from motors will be transmitted to the joystick directly through the bolts, while some stress relief comes from the flange, the likelihood of shearing of the bolts over a long period of use is relatively high.
+
+(c) Laser-cutting two parallel tracks from acrylic and fixing to aluminium side shafts which can withstand torsion. The Acrylic-PTFE surface is extremely low friction providing a smooth motion of joystick through tracks. However fixing acrylic to metal would not be possible with glue because of its surface finish, and drilling of holes for fixtures adds more stress concentrations into the already relatively lower-strength acrylic. A prototype version for the side-tracks was trialled for strength and failed under applied torsion. An extremely thick sheet of acrylic would be necessary and would not fall in line with the size constrictions of the assembly.
+
+(d) 3D printing a wholly combined piece so there are no fixtures and stresses are transferred directly through the body. This is a much more reliable design, but requires 3D printing of a material with stiffness comparable to metals or metal sintering. When inquiring about a metal sintered sample the price quote started at (euros)400 from FKM laser sintering which was out of the budget for mechanism materials. A prototype was 3D printed from ABS, to trial the mechanism and dimensions. However after further stress analysis outlined in the next section 6.3.2 the order of GPa is required for this application so any plastic component cannot be used (ABS has a flexural stiffness in the order of MPa).
+
+(e) The final choice was similar to all the above, using the same dimensions as the (a) and (b) but the whole piece concept of (d), the metal pieces would be welded together with no holes. Using lightweight aluminium, which welds much better than steel, the final piece would be much stronger than any of the above choices.
+
+
+% paragraph gimbal_design_iterations (end)
+
+\paragraph{Joystick Design Iterations} % (fold)
+\label{par:joystick_design_iterations}
+
+The original joystick design consisted of a delrin block with holes drilled across for the main shaft pin, and a hole drilled into the top for the joystick to screw into and be tightened up with a nut. After manufacturing a prototype piece, it was evident that even though delrin had a high stiffness in comparison to other plastics, in this shape configuration the stiffness was still not high enough, this is validated by stress analysis of this part in section 6.3.2.4. Another issue with this set-up was that there was a large amount of mechanical play because the fixing of joystick perpendicular to top face of delrin block was not completely rigid.
+
+To fix the flexing issue a material of higher flexural modulus was required, so aluminium was used instead for this part. A special flanged bearing setup was used to solve the frictional issues and this will be shown in more detail in section 6.2.4. To solve the issue of mechanical play, instead of having two separate parts, it would be manufactured from one piece of metal - slightly more complex to machine, but this would improve rigidity vastly.
+
+The diagram below shows the development of the joystick. The final piece with the gimbal part sitting underneath the origin of rotation, this allows for more space on the top so the complexity of the casing cover could be reduced to a flat top. This also allowed for joystick length reduction - reducing overall torque necessary to produce the same force feedback for user.
+
+% \begin{longtable}[h]{@{}ll@{}}
+%   \caption{Friction Coefficients}
+%   \toprule
+%   Aluminium         & XX    \tabularnewline
+%   PTFE              & XX     \tabularnewline
+%   Delrin            & XX   \tabularnewline
+%   Nylon             & XX       \tabularnewline
+%   Other plastics    & XX     \tabularnewline
+%   \bottomrule
+% \end{longtable}
+
+Aluminium seizes on contact, so considered using aluminum-aluminum with lube - Coefficient of friction increases over time until complete fusion of parts. Long-term not great. High maintenance lubrications.
+
+Instead we used an flanged support so the faces are not touching.
+Dual friction PTFE plates surrounding both parts, but requires complex adherence to part.
+Otherwise Teflon spray coating.
+
+PTFE will rub away over time and produce an even smoother motion, although it will reach a point where it has rubbed away so much that the piece will require replacement due to increased mechanical play.
+
+
+% paragraph joystick_design_iterations (end)
+
+% subsection main_design_iterations (end)
+
+% section failure_analysis_and_design_optimisation (end)
+
+\section{Ergonomics} % (fold)
+\label{sec:ergonomics}
+
+\subsection{Joystick Handle} % (fold)
+\label{sub:joystick_handle}
+
+Nada
+
+% subsection joystick_handle (end)
+
+\subsection{Wrist Support} % (fold)
+\label{sub:wrist_support}
+
+The surgitouch will be used for extended periods of time during surgery, meaning care must be taken to ensure that the surgeon’s wrist rests in a comfortable and healthy position to avoid muscular strain. Incorrect support of the arm and wrists can cause excessive pressures on the delicate tendons on the underside of the wrists, leading to tenosynovitis (inflammation of the sheath surrounding tendons) and carpal tunnel syndrome. According to the American Occupational Safety and Health Administration, the following things must be considered when choosing a rest:
+
+\begin{itemize}
+  \item “Your hands and wrists should move freely and be elevated above the wrist/palm rest. When resting, the pad should contact the heel or palm of your hand, not your wrist.
+  \item Reduce bending of the wrists by adjusting other workstation components (chair, desk, keyboard) so the wrist can maintain an in-line, neutral posture.
+  \item Provide wrist/palm supports that are fairly soft and rounded to minimize pressure on the wrist. The support should be at least 3.8 cm (1.5 inches) deep.”
+\end{itemize}
+
+Using these guidelines, a few ideas were sketched out as shown below. Care was taken to place the rest such that it could be used by both left and right handed surgeons.
+
+As opposed to the joystick grip, which was specified for the diameter of our joystick and thus needed to be 3D-printed, arm rests are a fairly common product and can be bought from retailers. Therefore, the guidelines and sketches were used to buy a rest which met our requirements:
+
+% subsection wrist_support (end)
+
+% section ergonomics (end)
